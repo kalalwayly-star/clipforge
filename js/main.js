@@ -1,4 +1,3 @@
-```javascript
 // =====================================
 // CLIPFORGE MAIN JAVASCRIPT
 // =====================================
@@ -43,4 +42,3 @@ if (currentYear) {
 }
 
 console.log("ClipForge website initialized successfully.");
-```
