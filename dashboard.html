@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard | ClipForge</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .credit-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #1769aa;
+            margin: 10px 0;
+        }
+
+        .dashboard-button {
+            display: inline-block;
+            padding: 12px 22px;
+            background: #1769aa;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .logout-button {
+            background: #dc2626;
+        }
+
+        #dashboardMessage {
+            color: #dc2626;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+        <h1>ClipForge</h1>
+        <p>Turn Your Imagination Into Videos.</p>
+    </div>
+</header>
+
+<main class="dashboard-container">
+
+    <div class="dashboard-card">
+        <h2>My Dashboard</h2>
+        <p>Welcome, <strong id="memberName">Loading...</strong></p>
+        <p id="memberEmail"></p>
+        <p id="dashboardMessage">Checking your account...</p>
+
+        <button id="logoutButton" class="dashboard-button logout-button"
+                type="button">
+            Log Out
+        </button>
+    </div>
+
+    <div class="dashboard-card">
+        <h2>My Credits</h2>
+        <div class="credit-number" id="creditBalance">--</div>
+        <p>Available video generation credits</p>
+    </div>
+
+    <div class="dashboard-card">
+        <h2>Create a Video</h2>
+        <p>Your video creation workspace will be available here.</p>
+        <button class="dashboard-button" type="button" disabled>
+            Video Creator Coming Soon
+        </button>
+    </div>
+
+</main>
+
+<script type="module">
+import { auth, db } from "./js/firebase-config.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+const memberName = document.getElementById("memberName");
+const memberEmail = document.getElementById("memberEmail");
+const creditBalance = document.getElementById("creditBalance");
+const message = document.getElementById("dashboardMessage");
+const logoutButton = document.getElementById("logoutButton");
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    memberName.textContent = user.displayName || "Member";
+    memberEmail.textContent = user.email || "";
+
+    try {
+        const profileRef = doc(db, "users", user.uid);
+        const profileSnapshot = await getDoc(profileRef);
+
+        if (!profileSnapshot.exists()) {
+            message.textContent = "Your member profile was not found.";
+            creditBalance.textContent = "0";
+            return;
+        }
+
+        const profile = profileSnapshot.data();
+
+        creditBalance.textContent = profile.credits ?? 0;
+        message.textContent = "Your account is ready.";
+
+    } catch (error) {
+        console.error("Dashboard error:", error);
+        message.textContent = "Could not load your account information.";
+    }
+});
+
+logoutButton.addEventListener("click", async () => {
+    try {
+        await signOut(auth);
+        window.location.href = "login.html";
+    } catch (error) {
+        console.error("Logout error:", error);
+        message.textContent = "Could not log out. Please try again.";
+    }
+});
+</script>
+
+</body>
+</html>
