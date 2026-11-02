@@ -1,1 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ClipForge - AI Video Generator</title>
+
+    <meta name="description" content="Turn your imagination into videos with ClipForge. Create amazing AI videos from text and images.">
+
+    <meta name="theme-color" content="#102b50">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container header-content">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">▶</span>
+            <span>ClipForge</span>
+        </a>
+
+        <nav class="navigation">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#examples">Examples</a>
+            <a href="#pricing">Pricing</a>
+        </nav>
+
+        <div class="header-buttons">
+            <a href="login.html" class="login-btn">Login</a>
+            <a href="register.html" class="register-btn">Get Started</a>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+            ☰
+        </button>
+
+    </div>
+</header>
+
+
+<!-- HERO SECTION -->
+<main>
+
+<section class="hero" id="home">
+
+    <div class="container hero-content">
+
+        <div class="hero-text">
+
+            <span class="hero-label">
+                ✨ AI VIDEO CREATION PLATFORM
+            </span>
+
+            <h1>
+                Turn Your Imagination
+                <span>Into Videos.</span>
+            </h1>
+
+            <p>
+                Create stunning short videos using artificial intelligence.
+                Turn simple ideas and photographs into amazing videos
+                in just a few clicks.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="register.html" class="primary-btn">
+                    Start Creating Free →
+                </a>
+
+                <a href="#examples" class="secondary-btn">
+                    Explore Videos
+                </a>
+            </div>
+
+            <div class="hero-note">
+                🎁 New members receive 3 free video credits.
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="video-preview">
+
+                <div class="preview-image">
+                    <div class="play-button">▶</div>
+                    <span class="preview-label">AI VIDEO PREVIEW</span>
+                </div>
+
+                <div class="preview-footer">
+                    <div>
+                        <strong>Your imagination.</strong>
+                        <p>Created with ClipForge AI</p>
+                    </div>
+
+                    <span class="ai-badge">AI ✨</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+<section class="features section" id="features">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <span>WHAT YOU CAN CREATE</span>
+            <h2>Bring Your Ideas to Life</h2>
+            <p>Powerful tools to create videos without complicated editing.</p>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">✍️</div>
+                <h3>Text to Video</h3>
+                <p>Describe your idea and let AI turn your words into a video.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🖼️</div>
+                <h3>Image to Video</h3>
+                <p>Upload a photograph and bring it to life with AI animation.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎙️</div>
+                <h3>AI Voiceovers</h3>
+                <p>Add narration and professional voices to your videos.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌎</div>
+                <h3>Multiple Languages</h3>
+                <p>Create content for audiences around the world.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VIDEO EXAMPLES -->
+<section class="examples section" id="examples">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <span>GET INSPIRED</span>
+            <h2>What Will You Create?</h2>
+            <p>Discover the possibilities of AI video creation.</p>
+        </div>
+
+        <div class="example-grid">
+
+            <div class="example-card">
+                <div class="example-placeholder">🎬</div>
+                <h3>Cinematic Videos</h3>
+                <p>Create beautiful cinematic scenes.</p>
+            </div>
+
+            <div class="example-card">
+                <div class="example-placeholder">🚗</div>
+                <h3>Product Advertising</h3>
+                <p>Promote products and businesses.</p>
+            </div>
+
+            <div class="example-card">
+                <div class="example-placeholder">🌅</div>
+                <h3>Travel & Lifestyle</h3>
+                <p>Turn creative ideas into visual stories.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works section">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <span>GET STARTED</span>
+            <h2>Three Simple Steps</h2>
+        </div>
+
+        <div class="steps-grid">
+
+            <div class="step">
+                <span>01</span>
+                <h3>Create an Account</h3>
+                <p>Register for your free ClipForge account.</p>
+            </div>
+
+            <div class="step">
+                <span>02</span>
+                <h3>Describe Your Video</h3>
+                <p>Enter a description or upload an image.</p>
+            </div>
+
+            <div class="step">
+                <span>03</span>
+                <h3>Generate & Download</h3>
+                <p>Generate your video and download your creation.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRICING -->
+<section class="pricing section" id="pricing">
+
+    <div class="container">
+
+        <div class="section-heading">
+            <span>SIMPLE PLANS</span>
+            <h2>Start Creating Today</h2>
+            <p>Explore ClipForge with free credits before choosing a paid plan.</p>
+        </div>
+
+        <div class="pricing-grid">
+
+            <div class="price-card">
+                <h3>Free</h3>
+                <div class="price">$0</div>
+                <p>Perfect for trying ClipForge.</p>
+
+                <ul>
+                    <li>3 free video credits</li>
+                    <li>Text-to-video access</li>
+                    <li>Image-to-video access</li>
+                    <li>Basic video downloads</li>
+                </ul>
+
+                <a href="register.html" class="secondary-btn">
+                    Get Started
+                </a>
+            </div>
+
+            <div class="price-card featured-price">
+                <span class="popular-label">POPULAR</span>
+
+                <h3>Premium</h3>
+                <div class="price">Coming Soon</div>
+                <p>For regular video creators.</p>
+
+                <ul>
+                    <li>Monthly video credits</li>
+                    <li>More AI video styles</li>
+                    <li>Higher quality options</li>
+                    <li>Priority generation options</li>
+                </ul>
+
+                <a href="register.html" class="primary-btn">
+                    Join ClipForge
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL CALL TO ACTION -->
+<section class="final-cta">
+
+    <div class="container">
+
+        <h2>Your Next Great Video Starts Here.</h2>
+
+        <p>
+            Join ClipForge and discover a new way to create videos.
+        </p>
+
+        <a href="register.html" class="primary-btn">
+            Create Your Free Account →
+        </a>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="container footer-content">
+
+        <a href="index.html" class="logo footer-logo">
+            <span class="logo-icon">▶</span>
+            <span>ClipForge</span>
+        </a>
+
+        <p>
+            Turn Your Imagination Into Videos.
+        </p>
+
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="login.html">Login</a>
+        </div>
+
+        <p class="copyright">
+            © <span id="currentYear"></span> ClipForge. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
 
