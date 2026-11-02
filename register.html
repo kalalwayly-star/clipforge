@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - ClipForge</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <a href="index.html" class="logo">Clip<span>Forge</span></a>
+        <a href="login.html" class="btn btn-secondary">Log In</a>
+    </div>
+</header>
+
+<main class="section">
+    <div class="container" style="max-width: 460px;">
+
+        <div class="section-heading">
+            <h2>Create Your ClipForge Account</h2>
+            <p>Join ClipForge and start turning your ideas into videos.</p>
+        </div>
+
+        <form id="registerForm"
+              style="background:white; padding:30px; border:1px solid #e5e7eb; border-radius:14px; box-shadow:0 12px 35px rgba(16,24,40,.08);">
+
+            <label for="fullName">Full Name</label>
+            <input
+                type="text"
+                id="fullName"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+                style="width:100%; padding:13px; margin:8px 0 18px; border:1px solid #d0d5dd; border-radius:8px;"
+            >
+
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                required
+                autocomplete="email"
+                placeholder="you@example.com"
+                style="width:100%; padding:13px; margin:8px 0 18px; border:1px solid #d0d5dd; border-radius:8px;"
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                required
+                minlength="8"
+                autocomplete="new-password"
+                placeholder="At least 8 characters"
+                style="width:100%; padding:13px; margin:8px 0 18px; border:1px solid #d0d5dd; border-radius:8px;"
+            >
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                type="password"
+                id="confirmPassword"
+                required
+                minlength="8"
+                autocomplete="new-password"
+                placeholder="Enter your password again"
+                style="width:100%; padding:13px; margin:8px 0 20px; border:1px solid #d0d5dd; border-radius:8px;"
+            >
+
+            <button type="submit" class="btn btn-primary"
+                    id="registerButton"
+                    style="width:100%; border:0;">
+                Create Account
+            </button>
+
+            <p id="registerMessage"
+               role="status"
+               aria-live="polite"
+               style="margin-top:16px; text-align:center;"></p>
+
+            <p style="text-align:center; margin-top:20px; font-size:14px;">
+                Already have an account?
+                <a href="login.html" style="color:#2563eb; font-weight:bold;">
+                    Log in
+                </a>
+            </p>
+        </form>
+    </div>
+</main>
+
+<script type="module">
+import { auth } from "./js/firebase-config.js";
+import {
+    createUserWithEmailAndPassword,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+const form = document.getElementById("registerForm");
+const message = document.getElementById("registerMessage");
+const button = document.getElementById("registerButton");
+
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    message.style.color = "#dc2626";
+
+    if (password !== confirmPassword) {
+        message.textContent = "Your passwords do not match.";
+        return;
+    }
+
+    if (password.length < 8) {
+        message.textContent = "Password must be at least 8 characters.";
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Creating account...";
+    message.textContent = "";
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        await updateProfile(userCredential.user, {
+            displayName: fullName
+        });
+
+        message.style.color = "#15803d";
+        message.textContent = "Account created successfully!";
+
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+        const messages = {
+            "auth/email-already-in-use": "This email is already registered.",
+            "auth/invalid-email": "Please enter a valid email address.",
+            "auth/weak-password": "Please choose a stronger password.",
+            "auth/network-request-failed": "Network error. Please try again."
+        };
+
+        message.textContent =
+            messages[error.code] || "Could not create your account. Please try again.";
+
+        button.disabled = false;
+        button.textContent = "Create Account";
+    }
+});
+</script>
+
+</body>
+</html>
