@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Video Creator | ClipForge</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background: #f3f6fb;
+            color: #172033;
+        }
+
+        .creator-container {
+            max-width: 1150px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .creator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .creator-header h1 {
+            margin-bottom: 5px;
+        }
+
+        .credit-display {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .creator-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .creator-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+        }
+
+        .creator-card h2 {
+            margin-top: 0;
+            font-size: 21px;
+        }
+
+        .creator-label {
+            display: block;
+            font-weight: 600;
+            margin: 20px 0 8px;
+        }
+
+        .creator-input,
+        .creator-select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #d5dce7;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        .creator-input:focus,
+        .creator-select:focus {
+            outline: 2px solid #8bbdf0;
+            border-color: #1769aa;
+        }
+
+        textarea.creator-input {
+            min-height: 150px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .mode-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .mode-option {
+            border: 1px solid #d5dce7;
+            border-radius: 9px;
+            padding: 14px;
+            cursor: pointer;
+        }
+
+        .mode-option input {
+            margin-right: 7px;
+        }
+
+        .upload-area {
+            border: 2px dashed #b7c7db;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            background: #f8fbff;
+            cursor: pointer;
+        }
+
+        .upload-area input {
+            max-width: 100%;
+            margin-top: 12px;
+        }
+
+        .upload-note {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .preview-box {
+            min-height: 280px;
+            background: #111827;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #dbeafe;
+            overflow: hidden;
+        }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 8px;
+        }
+
+        .generate-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #1769aa;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generate-button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .creator-message {
+            margin-top: 15px;
+            color: #b45309;
+            line-height: 1.5;
+        }
+
+        .creator-navigation {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .creator-navigation a {
+            color: #1769aa;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 750px) {
+            .creator-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .creator-container {
+                margin: 15px auto;
+                padding: 12px;
+            }
+
+            .creator-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="creator-container">
+
+    <nav class="creator-navigation">
+        <a href="index.html">ClipForge Home</a>
+        <a href="dashboard.html">My Dashboard</a>
+        <a href="#" id="logoutLink">Log Out</a>
+    </nav>
+
+    <div class="creator-header">
+        <div>
+            <h1>AI Video Creator</h1>
+            <p>Turn your imagination into videos.</p>
+        </div>
+
+        <div class="credit-display">
+            Available credits: <strong id="creditBalance">Loading...</strong>
+        </div>
+    </div>
+
+    <div class="creator-layout">
+
+        <section class="creator-card">
+
+            <h2>Create Your Video</h2>
+
+            <label class="creator-label">Choose creation method</label>
+
+            <div class="mode-options">
+                <label class="mode-option">
+                    <input type="radio" name="creationMode"
+                           value="text" checked>
+                    Text to Video
+                </label>
+
+                <label class="mode-option">
+                    <input type="radio" name="creationMode"
+                           value="image">
+                    Image to Video
+                </label>
+            </div>
+
+            <label class="creator-label" for="videoPrompt">
+                Describe your video
+            </label>
+
+            <textarea
+                id="videoPrompt"
+                class="creator-input"
+                placeholder="Example: A beautiful sunset over the ocean, cinematic camera movement, realistic lighting..."
+            ></textarea>
+
+            <div id="imageUploadSection" hidden>
+                <label class="creator-label">Upload your image</label>
+
+                <div class="upload-area">
+                    <p>Select an image to use as your video starting point.</p>
+
+                    <input
+                        type="file"
+                        id="imageUpload"
+                        accept="image/png,image/jpeg,image/webp"
+                    >
+
+                    <p class="upload-note">
+                        PNG, JPG or WEBP images
+                    </p>
+                </div>
+            </div>
+
+            <label class="creator-label" for="aspectRatio">
+                Video aspect ratio
+            </label>
+
+            <select id="aspectRatio" class="creator-select">
+                <option value="16:9">16:9 — Landscape / YouTube</option>
+                <option value="9:16">9:16 — Vertical / TikTok / Reels</option>
+                <option value="1:1">1:1 — Square / Social Media</option>
+            </select>
+
+            <label class="creator-label" for="videoDuration">
+                Video duration
+            </label>
+
+            <select id="videoDuration" class="creator-select">
+                <option value="5">5 seconds</option>
+                <option value="10">10 seconds</option>
+                <option value="15">15 seconds</option>
+            </select>
+
+            <button
+                type="button"
+                class="generate-button"
+                id="generateButton"
+                disabled
+            >
+                Video Generation Coming Soon
+            </button>
+
+            <p class="creator-message" id="creatorMessage">
+                Your workspace is ready. AI video generation will be
+                connected after we configure the secure video service.
+            </p>
+
+        </section>
+
+        <section class="creator-card">
+
+            <h2>Video Preview</h2>
+
+            <div class="preview-box" id="previewBox">
+                <p>Your video preview will appear here.</p>
+            </div>
+
+            <p class="upload-note">
+                Uploaded images can be previewed here. Actual video
+                generation is not connected yet.
+            </p>
+
+        </section>
+
+    </div>
+
+</main>
+
+<script type="module">
+import { auth, db } from "./js/firebase-config.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+const creditBalance = document.getElementById("creditBalance");
+const creatorMessage = document.getElementById("creatorMessage");
+const imageUploadSection = document.getElementById("imageUploadSection");
+const imageUpload = document.getElementById("imageUpload");
+const previewBox = document.getElementById("previewBox");
+
+let previewUrl = null;
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const profileRef = doc(db, "users", user.uid);
+        const profileSnapshot = await getDoc(profileRef);
+
+        if (!profileSnapshot.exists()) {
+            creatorMessage.textContent =
+                "Your member profile could not be found.";
+            creditBalance.textContent = "Unavailable";
+            return;
+        }
+
+        const profile = profileSnapshot.data();
+        creditBalance.textContent = profile.credits ?? 0;
+
+    } catch (error) {
+        console.error("Profile loading error:", error);
+        creditBalance.textContent = "Unavailable";
+        creatorMessage.textContent =
+            "Could not load your credit balance.";
+    }
+});
+
+document.querySelectorAll('input[name="creationMode"]')
+    .forEach((radio) => {
+        radio.addEventListener("change", () => {
+            const imageMode = document.querySelector(
+                'input[name="creationMode"]:checked'
+            ).value === "image";
+
+            imageUploadSection.hidden = !imageMode;
+
+            if (!imageMode) {
+                imageUpload.value = "";
+                previewBox.innerHTML =
+                    "<p>Your video preview will appear here.</p>";
+
+                if (previewUrl) {
+                    URL.revokeObjectURL(previewUrl);
+                    previewUrl = null;
+                }
+            }
+        });
+    });
+
+imageUpload.addEventListener("change", () => {
+    const file = imageUpload.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        creatorMessage.textContent =
+            "Please select a valid image.";
+        imageUpload.value = "";
+        return;
+    }
+
+    if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+    }
+
+    previewUrl = URL.createObjectURL(file);
+
+    const image = document.createElement("img");
+    image.src = previewUrl;
+    image.alt = "Selected image preview";
+
+    previewBox.replaceChildren(image);
+
+    creatorMessage.textContent =
+        "Image selected. Video generation is not connected yet.";
+});
+
+document.getElementById("logoutLink")
+    .addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        try {
+            await signOut(auth);
+            window.location.href = "login.html";
+        } catch (error) {
+            console.error("Logout error:", error);
+            creatorMessage.textContent =
+                "Could not log out. Please try again.";
+        }
+    });
+</script>
+
+</body>
+</html>
